@@ -2,7 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"],
-      "contentLayer/generaeted": ["./.contentlayer/generated"],
+      "contentLayer/generated": ["./.contentlayer/generated"],
     }
   }
 }

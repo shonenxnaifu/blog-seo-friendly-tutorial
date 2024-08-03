@@ -1,11 +1,16 @@
 import Image from "next/image";
-import { allBlogs } from "contentLayer/generaeted";
+import { allBlogs } from "contentLayer/generated";
+import HomeCoverSection from "../components/Home/HomeCoverSection";
+import FeaturedPosts from "../components/Home/FeaturedPosts";
+import RecentPosts from "../components/Home/RecentPosts";
 
 export default function Home() {
-  console.log(allBlogs);
+
   return (
     <main className="flex flex-col items-center justify-center">
-      Lorem Ipsum 
+      <HomeCoverSection blogs={allBlogs}/>
+      <FeaturedPosts blogs={allBlogs}/>
+      <RecentPosts blogs={allBlogs}/>
     </main>
   );
 }
