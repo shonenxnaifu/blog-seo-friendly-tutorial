@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../icon";
 import Link from "next/link";
+import siteMetaData from "@/src/utils/siteMetaData";
 
 const Footer = () => {
   const {
@@ -11,7 +12,7 @@ const Footer = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
-  console.log(errors);
+  console.log("error footer", errors);
 
   return (
     <footer className="mt-16 rounded-2xl bg-dark m-10 flex flex-col items-center text-light">
@@ -41,16 +42,16 @@ const Footer = () => {
         </button>
       </form>
       <div className="flex items-center mt-8">
-        <a href="https://" className="inline-block w-6 h-6 mr-4">
+        <a href={siteMetaData.linkedin} className="inline-block w-6 h-6 mr-4">
           <LinkedinIcon className="hover:scale-125 transition-all ease duration-300" />
         </a>
-        <a href="https://" className="inline-block w-6 h-6 mr-4">
+        <a href={siteMetaData.twitter} className="inline-block w-6 h-6 mr-4">
           <TwitterIcon className="hover:scale-125 transition-all ease duration-300" />
         </a>
-        <a href="https://" className="inline-block w-6 h-6 mr-4 fill-light">
+        <a href={siteMetaData.github} className="inline-block w-6 h-6 mr-4 fill-light">
           <GithubIcon className="hover:scale-125 transition-all ease duration-300" />
         </a>
-        <a href="https://" className="inline-block w-6 h-6 mr-4">
+        <a href={siteMetaData.dribbble} className="inline-block w-6 h-6 mr-4">
           <DribbbleIcon className="hover:scale-125 transition-all ease duration-300" />
         </a>
       </div>

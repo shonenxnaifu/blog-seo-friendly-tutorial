@@ -1,16 +1,69 @@
 import BlogDetails from "@/src/components/Blog/BlogDetails";
 import RenderMdx from "@/src/components/Blog/RenderMdx";
 import Tags from "@/src/components/Elements/Tags";
+import siteMetaData from "@/src/utils/siteMetaData";
 import { allBlogs } from "contentLayer/generated";
 import { slug } from "github-slugger";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   return allBlogs.map((blog) => ({ slug: blog._raw.flattenedPath }));
 }
 
+export async function generateMetadata({ params }) {
+  const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+  if (!blog) {
+    return;
+  }
+
+  const publishedAt = new Date(blog.publishedAt).toISOString();
+  const modifiedAt = new Date(blog.updatedAt || blog.publishedAt).toISOString();
+
+  let imageList = [siteMetaData.socialBanner];
+  if (blog.image) {
+    imageList =
+      typeof blog.image.filePath === "string"
+        ? [siteMetaData.siteUrl + blog.image.filePath.replace("../public", "")]
+        : blog.image;
+  }
+
+  const ogImages = imageList.map((img) => {
+    return { url: img.includes("http") ? img : siteMetaData.siteUrl + img };
+  });
+
+  const authors = blog?.author ? [blog.author] : siteMetaData.author;
+
+  return {
+    title: blog.title,
+    description: blog.description,
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      url: siteMetaData.siteUrl + blog.url,
+      siteName: siteMetaData.title,
+      locale: "en_US",
+      type: "website",
+      publishedAt: publishedAt,
+      modifiedAt: modifiedAt,
+      images: ogImages,
+      authors: authors.length > 0 ? authors : [siteMetaData.author] 
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title, 
+      description: blog.description,
+      images: ogImages,
+    },
+  };
+}
+
 export default function BlogPage({ params }) {
   const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+
+  if (!blog) {
+    notFound();
+  }
 
   return (
     <article>

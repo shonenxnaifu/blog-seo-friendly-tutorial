@@ -1,8 +1,13 @@
+"use client"
 import Link from "next/link"
 import Logo from "./Logo"
 import { DribbbleIcon, GithubIcon, LinkedinIcon, LinkedInIcon, SunIcon, TwitterIcon } from "../icon"
+import siteMetaData from "@/src/utils/siteMetaData"
+import { useThemeSwitch } from "../Hooks/useThemeSwitch"
 
 const Header = () => {
+
+  const [mode, setMode] = useThemeSwitch();
   return (
     <header className="w-full p-4 px-10 flex items-center justify-between">
       <Logo />
@@ -10,15 +15,15 @@ const Header = () => {
         <Link href="/" className="mr-2">Home</Link>
         <Link href="/about" className="mx-2">About</Link>
         <Link href="/contact" className="mx-2">Contact</Link>
-        <button>
+        <button onClick={() => setMode(mode === "light" ? "dark" : "light")}>
           <SunIcon />
         </button>
       </nav>
       <div>
-        <a href="https://" className="inline-block w-6 h-6 mr-4"><LinkedinIcon className="hover:scale-125 transition-all ease duration-300"/></a>
-        <a href="https://" className="inline-block w-6 h-6 mr-4"><TwitterIcon className="hover:scale-125 transition-all ease duration-300"/></a>
-        <a href="https://" className="inline-block w-6 h-6 mr-4"><GithubIcon className="hover:scale-125 transition-all ease duration-300"/></a>
-        <a href="https://" className="inline-block w-6 h-6 mr-4"><DribbbleIcon className="hover:scale-125 transition-all ease duration-300"/></a>
+        <a href={siteMetaData.linkedin} className="inline-block w-6 h-6 mr-4"><LinkedinIcon className="hover:scale-125 transition-all ease duration-300"/></a>
+        <a href={siteMetaData.twitter} className="inline-block w-6 h-6 mr-4"><TwitterIcon className="hover:scale-125 transition-all ease duration-300"/></a>
+        <a href={siteMetaData.github} className="inline-block w-6 h-6 mr-4"><GithubIcon className="hover:scale-125 transition-all ease duration-300"/></a>
+        <a href={siteMetaData.dribbble} className="inline-block w-6 h-6 mr-4"><DribbbleIcon className="hover:scale-125 transition-all ease duration-300"/></a>
       </div>
     </header>
   )
