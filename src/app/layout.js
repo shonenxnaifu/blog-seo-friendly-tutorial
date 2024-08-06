@@ -5,6 +5,7 @@ import Header from "@/src/components/Header";
 import Footer from "../components/Footer";
 import siteMetaData from "../utils/siteMetaData";
 import Script from "next/script";
+import ThemeScript from "../components/ThemeScript";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,14 +64,7 @@ export default function RootLayout({ children }) {
           "font-mr bg-light dark:bg-dark"
         )}
       >
-        <Script id="darkModeScript">
-          {`if (localStorage.getItem("theme") === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-  document.documentElement.classList.add('dark')
-} else {
-  document.documentElement.classList.remove('dark')
-}
-`}
-        </Script>
+        <ThemeScript />
         <Header />
         {children}
         <Footer />
