@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
           "font-mr bg-light dark:bg-dark"
         )}
       >
-        <ThemeScript />
+        {/* <ThemeScript /> */}
         <Header />
         {children}
         <Footer />
