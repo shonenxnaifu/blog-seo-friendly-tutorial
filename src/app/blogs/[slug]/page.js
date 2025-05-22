@@ -61,6 +61,11 @@ export async function generateMetadata({ params }) {
 
 export default function BlogPage({ params }) {
   const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+  
+  if (!blog) {
+    notFound();
+  }
+
   let imageList = [siteMetaData.socialBanner];
   if (blog.image) {
     imageList =
@@ -85,10 +90,6 @@ export default function BlogPage({ params }) {
       },
     ],
   };
-
-  if (!blog) {
-    notFound();
-  }
 
   return (
     <>
